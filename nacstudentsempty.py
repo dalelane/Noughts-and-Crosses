@@ -10,11 +10,7 @@ from mlforkidsnumbers import MLforKidsNumbers
 import os
 
 project = MLforKidsNumbers( 
-<<<<<<< HEAD
-key="for your key"
-=======
 key=os.environ["KEY"]
->>>>>>> 6b2c58f... using env file for key
 )
 
 
