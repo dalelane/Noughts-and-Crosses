@@ -7,10 +7,14 @@ import requests
 import random
 # this module is used to interact with your machine learning project
 from mlforkidsnumbers import MLforKidsNumbers
-
+import os
 
 project = MLforKidsNumbers( 
+<<<<<<< HEAD
 key="for your key"
+=======
+key=os.environ["KEY"]
+>>>>>>> 6b2c58f... using env file for key
 )
 
 
