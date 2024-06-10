@@ -9,8 +9,8 @@ import random
 from mlforkidsnumbers import MLforKidsNumbers
 
 
-project = MLforKidsNumbers(
-    # keys and URLs specific to your project will be added here
+project = MLforKidsNumbers( 
+key="for your key"
 )
 
 
@@ -173,7 +173,7 @@ def learn_from_this(winner, boardhistory, winnerdecisions):
         print("\nAt the start of move %d the board looked like this:" % (idx + 1))
         print(boardhistory[idx])
         print("And %s decided to put their mark in %s" % (winner, winnerdecisions[idx]))
-
+        add_to_train(boardhistory[idx], winner, winnerdecisions[idx])
 
 ############################################################################
 # Noughts and Crosses logic
@@ -607,6 +607,7 @@ while running:
             # if we're still going, it is the computer's turn next
             if gameover == False:
                 # the computer chooses where to play
+                pygame.time.delay(200)
                 gameover = let_computer_play(screen, board)
 
         # ignore anything else the user clicked on while we
