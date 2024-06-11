@@ -616,12 +616,9 @@ while running:
     # wait for the user to do something...
     event = pygame.event.wait()
 
-    no_games = 0
-    
-    if event.type == pygame.QUIT:
+    if event.type == pygame.QUIT:   
         running = False
 
-    
     if event.type == pygame.MOUSEBUTTONDOWN and gameover==False: 
         # what has the user clicked on?
         mx, my = pygame.mouse.get_pos()
@@ -644,10 +641,10 @@ while running:
     # ignore anything else the user clicked on while we
     #  were processing their click, so they don't try to
     #  sneakily have lots of moves at once
-    pygame.event.clear()
+   
 
-    if gameover==True:
-        draw_end_screen("winner", screen)
+    elif gameover==True:
+        draw_end_screen( screen)
         # check play again
 
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -669,7 +666,9 @@ while running:
                         COMPUTER : []
                     }
         pygame.event.clear()
-            
+    pygame.event.clear()
+   
     # explicitly quit pygame to ensure the app terminates correctly
 #  cf. https://www.pygame.org/wiki/FrequentlyAskedQuestions
+pygame.display.quit()
 pygame.quit()
