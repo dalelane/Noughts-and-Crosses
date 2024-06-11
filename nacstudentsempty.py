@@ -542,7 +542,7 @@ def game_move(screen, board, name_of_space, identity):
     #  have made 9 moves in total
     if len(decisions[HUMAN]) + len(decisions[COMPUTER]) >= 9:
         gameover = True
-       
+    player.name = identity   
     return gameover
 
 
@@ -576,9 +576,9 @@ def draw_end_screen(winner, screen):
     
     pygame.display.update()
 
-
-
-   
+class Player:
+    def __init__(self, player_name):
+        self.name = player_name
 ############################################################################
 # Main game logic starts here
 ############################################################################
@@ -606,10 +606,11 @@ running = True
 gameover = False
 
 debug("Deciding who will play first")
+player = Player("HUMAN")
 computer_goes_first = random.choice([False, True])
 if computer_goes_first:
         let_computer_play(screen, board)
-
+        player.name = "COMPUTER"
 
 while running:
     
@@ -644,7 +645,7 @@ while running:
    
 
     elif gameover==True:
-        draw_end_screen( screen)
+        draw_end_screen( player.name, screen)
         # check play again
 
         if event.type == pygame.MOUSEBUTTONDOWN:
