@@ -559,7 +559,7 @@ def draw_end_screen(winner, screen):
     
     
     if winner != 0:
-        end_text = "Player " + str(winner) + " wins!"
+        end_text = f"{winner} wins!"
     else:  
         end_text = "You have tied!"
     
