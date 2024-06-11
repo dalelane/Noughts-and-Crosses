@@ -8,6 +8,9 @@ import random
 # this module is used to interact with your machine learning project
 from mlforkidsnumbers import MLforKidsNumbers
 import os
+import dotenv
+
+dotenv.load_dotenv()
 
 project = MLforKidsNumbers( 
 key=os.environ["KEY"]
