@@ -146,7 +146,8 @@ def classify(board):
 #  name_of_space :  name of the space that the move was in
 #      e.g.    bottom_left
 def add_to_train(board, who, name_of_space):
-    print ("Adding the move in %s by %s to the training data" % (name_of_space, who))
+    if not DISPLAY_QUIET:
+         print ("Adding the move in %s by %s to the training data" % (name_of_space, who))
 
     # convert the contents of the board into a list of whose symbol
     #   is in that space, from the perspective of 'who'
@@ -374,6 +375,7 @@ def display_winner(screen, board, who):
     if gameover:
         # refresh the display if we've drawn any game-over lines
         pygame.display.update()
+        player.winner=who
 
     return gameover
 
@@ -532,17 +534,19 @@ def game_move(screen, board, name_of_space, identity):
 
     # have they won the game?
     gameover = display_winner(screen, board, identity)
+    
     if gameover:
         # someone won! maybe an ML project could learn from this
         learn_from_this(identity, gamehistory[identity], decisions[identity])
-        
+           
     # the game is also over if the board is full (a draw!)
     #
     # and the board is full if both players together
     #  have made 9 moves in total
     if len(decisions[HUMAN]) + len(decisions[COMPUTER]) >= 9:
         gameover = True
-    player.name = identity   
+
+    
     return gameover
 
 
@@ -577,8 +581,8 @@ def draw_end_screen(winner, screen):
     pygame.display.update()
 
 class Player:
-    def __init__(self, player_name):
-        self.name = player_name
+    def __init__(self):
+        self.winner = 0
 ############################################################################
 # Main game logic starts here
 ############################################################################
@@ -590,7 +594,8 @@ def debug(msg):
     # print(msg)
     pass
 
-DISPLAY_QUIET=False
+    
+DISPLAY_QUIET=True
 again_rect = pygame.Rect(500 // 2 - 80, 500 // 2, 160, 50)
 debug("Configuration")
 debug("Using identities %s %s %s" % (EMPTY, PLAYER, OPPONENT))
@@ -606,12 +611,11 @@ running = True
 gameover = False
 
 debug("Deciding who will play first")
-player = Player("HUMAN")
+player = Player()
 computer_goes_first = random.choice([False, True])
 if computer_goes_first:
         let_computer_play(screen, board)
-        player.name = "COMPUTER"
-
+        
 while running:
     
     # wait for the user to do something...
@@ -637,7 +641,7 @@ while running:
             # if we're still going, it is the computer's turn next
             if gameover == False:
                 # the computer chooses where to play
-                pygame.time.delay(200)
+                pygame.time.delay(1000)
                 gameover = let_computer_play(screen, board)
     # ignore anything else the user clicked on while we
     #  were processing their click, so they don't try to
@@ -645,7 +649,7 @@ while running:
    
 
     elif gameover==True:
-        draw_end_screen( player.name, screen)
+        draw_end_screen( player.winner, screen)
         # check play again
 
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -666,7 +670,11 @@ while running:
                         HUMAN : [],
                         COMPUTER : []
                     }
-        pygame.event.clear()
+                player.winner = 0
+                computer_goes_first = random.choice([False, True])
+                if computer_goes_first:
+                        let_computer_play(screen, board)
+                        pygame.event.clear()
     pygame.event.clear()
    
     # explicitly quit pygame to ensure the app terminates correctly
