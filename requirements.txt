@@ -1,10 +1,10 @@
 # noughts and crosses dependencies
-certifi==2024.2.2
+certifi==2025.1.31
 chardet==5.2.0
-idna==3.6
-pygame==2.5.2
-requests==2.31.0
-urllib3==2.2.1
+idna==3.10
+pygame==2.6.1
+requests==2.32.3
+urllib3==2.4.0
 # mlforkidsnumbers dependencies
-tensorflow-decision-forests==1.9.0
-pandas==2.2.1
+ydf==0.11.0
+pandas==2.2.3
